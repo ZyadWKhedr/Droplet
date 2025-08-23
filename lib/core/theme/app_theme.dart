@@ -10,7 +10,7 @@ ThemeData buildLightTheme() {
       secondary: AppColors.accent,
       brightness: Brightness.light,
     ),
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: Color(0xffFFFFFF),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       foregroundColor: AppColors.darkPrimary,

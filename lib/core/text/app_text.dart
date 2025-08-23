@@ -7,7 +7,7 @@ class AppText {
   static TextStyle get h1 => GoogleFonts.montserrat(
     fontSize: 28.sp,
     fontWeight: FontWeight.w700,
-    color: AppColors.darkPrimary,
+    color: Colors.black,
   );
 
   static TextStyle get h2 => GoogleFonts.montserrat(

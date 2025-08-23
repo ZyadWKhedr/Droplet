@@ -5,6 +5,7 @@ import 'package:droplet/features/auth/presentation/widgets/custom_button.dart';
 import 'package:droplet/features/auth/presentation/widgets/language_toggle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -38,7 +39,9 @@ class AuthPage extends StatelessWidget {
                   SizedBox(height: 15.h),
                   CustomButton(
                     text: context.loc.login,
-                    onPressed: () {},
+                    onPressed: () {
+                      context.pushNamed('login');
+                    },
                     hasBorder: true,
                   ),
                 ],

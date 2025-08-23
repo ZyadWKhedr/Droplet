@@ -43,6 +43,7 @@ class SupabaseAuthDataSource {
     };
 
     // Hosted OAuth flow (mobile/web). Requires URL scheme deep link config.
+    // ignore: unused_local_variable
     final res = await client.auth.signInWithOAuth(
       sp,
       redirectTo: null, // Supabase Flutter handles mobile deep links via scheme

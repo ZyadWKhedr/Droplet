@@ -1,8 +1,7 @@
-import 'package:droplet/core/extensions/localization_extension%20.dart';
 import 'package:droplet/core/localization/l10n/app_localizations.dart';
 import 'package:droplet/core/providers/app_theme_provider.dart';
 import 'package:droplet/core/providers/locale_provider.dart';
-import 'package:droplet/features/auth/presentation/pages/auth_page.dart';
+import 'package:droplet/core/routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'config/screenutil_setup.dart';
@@ -17,16 +16,16 @@ class MyApp extends ConsumerWidget {
     final locale = ref.watch(localeProvider);
 
     return ScreenUtilSetup(
-      child: MaterialApp(
+      child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
-        title: 'Your App',
+        title: 'Droplet',
         theme: buildLightTheme(),
         darkTheme: buildDarkTheme(),
         themeMode: themeMode,
         locale: locale,
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
-        home: const AuthPage(),
+        routerConfig: router,
       ),
     );
   }

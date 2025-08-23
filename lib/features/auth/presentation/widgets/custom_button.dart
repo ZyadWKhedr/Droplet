@@ -49,9 +49,11 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: hasBorder ? AppText.borderButton : AppText.button,
+        child: Center(
+          child: Text(
+            text,
+            style: hasBorder ? AppText.borderButton : AppText.button,
+          ),
         ),
       ),
     );
