@@ -33,7 +33,7 @@ class AuthPage extends StatelessWidget {
                     style: AppText.body,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 30.h),
+                  SizedBox(height: 40.h),
                   CustomButton(text: context.loc.signUp, onPressed: () {}),
                   SizedBox(height: 15.h),
                   CustomButton(
