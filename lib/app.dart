@@ -2,6 +2,7 @@ import 'package:droplet/core/extensions/localization_extension%20.dart';
 import 'package:droplet/core/localization/l10n/app_localizations.dart';
 import 'package:droplet/core/providers/app_theme_provider.dart';
 import 'package:droplet/core/providers/locale_provider.dart';
+import 'package:droplet/features/auth/presentation/pages/auth_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'config/screenutil_setup.dart';
@@ -25,17 +26,8 @@ class MyApp extends ConsumerWidget {
         locale: locale,
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
-        home: const _HookYourUIHere(),
+        home: const AuthPage(),
       ),
     );
-  }
-}
-
-class _HookYourUIHere extends StatelessWidget {
-  const _HookYourUIHere();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text(context.loc.tank)));
   }
 }
