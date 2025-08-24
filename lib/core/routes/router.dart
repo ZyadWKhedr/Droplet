@@ -2,6 +2,7 @@
 import 'package:droplet/features/auth/presentation/pages/auth_page.dart';
 import 'package:droplet/features/auth/presentation/pages/login_page.dart';
 import 'package:droplet/features/auth/presentation/pages/signup_page.dart';
+import 'package:droplet/features/home/presentation/pages/nav_page.dart';
 import 'package:droplet/features/splash/pages/splash_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -29,11 +30,11 @@ final router = GoRouter(
       name: 'signup',
       builder: (context, state) => const SignupPage(),
     ),
-    // GoRoute(
-    //   path: '/home',
-    //   name: 'home',
-    //   builder: (context, state) => const HomePage(),
-    // ),
+    GoRoute(
+      path: '/nav',
+      name: 'nav',
+      builder: (context, state) => const NavPage(),
+    ),
     // GoRoute(
     //   path: '/nav',
     //   name: 'nav',

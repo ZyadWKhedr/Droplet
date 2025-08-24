@@ -15,8 +15,8 @@ final splashProvider = FutureProvider<String>((ref) async {
   final isLoggedIn = prefs.getBool('is_logged_in') ?? false;
 
   if (isLoggedIn) {
-    return 'nav'; // already logged in → go to main page
+    return 'nav'; 
   } else {
-    return 'auth'; // not logged in → go to auth page
+    return 'auth'; 
   }
 });

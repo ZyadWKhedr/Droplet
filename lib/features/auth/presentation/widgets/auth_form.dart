@@ -11,6 +11,7 @@ import 'package:droplet/features/auth/presentation/widgets/custom_text_form_fiel
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthForm extends ConsumerWidget {
@@ -68,9 +69,8 @@ class AuthForm extends ConsumerWidget {
             backgroundColor: Colors.green,
             icon: Icons.check_circle,
           );
-
-          // Navigate after login
-          // context.goNamed('nav');
+          await prefs.setBool('is_logged_in', true);
+          context.goNamed('nav');
         }
       }
     }
