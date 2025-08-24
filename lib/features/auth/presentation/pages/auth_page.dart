@@ -35,7 +35,12 @@ class AuthPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 40.h),
-                  CustomButton(text: context.loc.signUp, onPressed: () {}),
+                  CustomButton(
+                    text: context.loc.signUp,
+                    onPressed: () {
+                      context.pushNamed('signup');
+                    },
+                  ),
                   SizedBox(height: 15.h),
                   CustomButton(
                     text: context.loc.login,

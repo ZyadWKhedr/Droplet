@@ -1,6 +1,7 @@
 // Define routes here, add auth guard later if needed
 import 'package:droplet/features/auth/presentation/pages/auth_page.dart';
 import 'package:droplet/features/auth/presentation/pages/login_page.dart';
+import 'package:droplet/features/auth/presentation/pages/signup_page.dart';
 import 'package:droplet/features/splash/pages/splash_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -23,11 +24,11 @@ final router = GoRouter(
       builder: (context, state) => const LoginPage(),
     ),
 
-    // GoRoute(
-    //   path: '/signup',
-    //   name: 'signup',
-    //   builder: (context, state) => const SignUpPage(),
-    // ),
+    GoRoute(
+      path: '/signup',
+      name: 'signup',
+      builder: (context, state) => const SignupPage(),
+    ),
     // GoRoute(
     //   path: '/home',
     //   name: 'home',

@@ -3,6 +3,8 @@ import 'package:droplet/core/extensions/localization_extension%20.dart';
 import 'package:droplet/core/widgets/top_snackbar_widget.dart';
 import 'package:droplet/features/auth/presentation/providers/auth_controller.dart';
 import 'package:droplet/features/auth/presentation/providers/auth_state.dart';
+import 'package:droplet/features/auth/presentation/widgets/OAuth_or_row_widget.dart';
+import 'package:droplet/features/auth/presentation/widgets/OAuth_row_section.dart';
 import 'package:droplet/features/auth/presentation/widgets/auth_switch_text.dart';
 import 'package:droplet/features/auth/presentation/widgets/custom_button.dart';
 import 'package:droplet/features/auth/presentation/widgets/custom_text_form_field.dart';
@@ -28,7 +30,6 @@ class AuthForm extends ConsumerWidget {
     void submit() async {
       if (_formKey.currentState!.validate()) {
         if (isLogin) {
-          // LOGIN
           await ref
               .read(authStateProvider.notifier)
               .signInEmail(
@@ -36,7 +37,6 @@ class AuthForm extends ConsumerWidget {
                 password: _passwordController.text.trim(),
               );
         } else {
-          // SIGN UP
           await ref
               .read(authStateProvider.notifier)
               .signUpEmail(
@@ -46,11 +46,10 @@ class AuthForm extends ConsumerWidget {
               );
         }
 
-        // Get the latest state after the async operation
+        // Get the latest state after async operation
         final newState = ref.read(authStateProvider);
 
         if (newState is AuthUnauthenticated && newState.message != null) {
-          // Show error
           TopSnackBar.show(
             context,
             message: newState.message!,
@@ -58,11 +57,9 @@ class AuthForm extends ConsumerWidget {
             icon: Icons.error,
           );
         } else if (newState is AuthAuthenticated) {
-          // Persist login flag
           final prefs = await SharedPreferences.getInstance();
           await prefs.setBool('is_logged_in', true);
 
-          // Show success
           TopSnackBar.show(
             context,
             message: isLogin
@@ -72,11 +69,8 @@ class AuthForm extends ConsumerWidget {
             icon: Icons.check_circle,
           );
 
-          // Navigate
+          // Navigate after login
           // context.goNamed('nav');
-          // Future.delayed(Duration(milliseconds: 50), () {
-          //   ref.read(bottomNavIndexProvider.notifier).state = 0;
-          // });
         }
       }
     }
@@ -120,13 +114,18 @@ class AuthForm extends ConsumerWidget {
                 val,
               ),
             ),
-            SizedBox(height: 62.h),
           ],
+          SizedBox(height: isLogin ? 62.h : 30.h),
+
           CustomButton(
             text: isLogin ? context.loc.login : context.loc.signUp,
             onPressed: submit,
           ),
-          SizedBox(height: 291.h),
+          SizedBox(height: 50.h),
+          OauthOrRowWidget(isLogin: isLogin),
+          SizedBox(height: 30.h),
+          OauthRowSection(),
+          SizedBox(height: 40.h),
           AuthSwitchText(isSignup: !isLogin, onTap: onSwitch),
         ],
       ),

@@ -31,5 +31,7 @@
   "tankClosed": "Tank is Closed",
   "tankOpened": "Tank is Opened",
   "plants": "Plants to grow",
-  "hi": "Hi, "
+  "hi": "Hi, ",
+  "orLoginWith": "Or Login with",
+  "orRegisterWith": "Or Register with"
 }

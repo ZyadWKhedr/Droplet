@@ -10,12 +10,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginPage extends ConsumerWidget {
-  const LoginPage({super.key});
+class SignupPage extends ConsumerWidget {
+  const SignupPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authStateProvider);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -34,11 +35,11 @@ class LoginPage extends ConsumerWidget {
                       ),
                     ),
                     SizedBox(height: 28.h),
-                    Text(context.loc.loginTitle, style: AppText.h1),
+                    Text(context.loc.signUpTitle, style: AppText.h1),
                     SizedBox(height: 40.h),
                     AuthForm(
-                      isLogin: true,
-                      onSwitch: () => context.goNamed('signup'),
+                      isLogin: false,
+                      onSwitch: () => context.goNamed('login'),
                     ),
                     SizedBox(height: 100.h),
                   ],

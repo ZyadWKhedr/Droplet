@@ -107,4 +107,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get hi => 'مرحبًا، ';
+
+  @override
+  String get orLoginWith => 'أو تسجيل الدخول بـ';
+
+  @override
+  String get orRegisterWith => 'أو التسجيل بـ';
 }

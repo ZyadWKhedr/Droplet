@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppText {
   static TextStyle get h1 => GoogleFonts.montserrat(
-    fontSize: 28.sp,
-    fontWeight: FontWeight.w700,
+    fontSize: 31.sp,
+    fontWeight: FontWeight.w600,
     color: Colors.black,
   );
 
@@ -22,8 +22,11 @@ class AppText {
     fontWeight: FontWeight.w500,
   );
 
-  static TextStyle get bodyMuted =>
-      GoogleFonts.montserrat(fontSize: 14.sp, color: AppColors.textMuted);
+  static TextStyle get bodyMuted => GoogleFonts.montserrat(
+    fontSize: 13.sp,
+    color: AppColors.textMuted,
+    fontWeight: FontWeight.w500,
+  );
 
   static TextStyle get button => GoogleFonts.montserrat(
     fontSize: 20.sp,

@@ -107,4 +107,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hi => 'Hi, ';
+
+  @override
+  String get orLoginWith => 'Or Login with';
+
+  @override
+  String get orRegisterWith => 'Or Register with';
 }

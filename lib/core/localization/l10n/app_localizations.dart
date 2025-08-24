@@ -295,6 +295,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hi, '**
   String get hi;
+
+  /// No description provided for @orLoginWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Or Login with'**
+  String get orLoginWith;
+
+  /// No description provided for @orRegisterWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Or Register with'**
+  String get orRegisterWith;
 }
 
 class _AppLocalizationsDelegate
