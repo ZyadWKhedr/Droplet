@@ -37,6 +37,7 @@ dependencies:
     sdk: flutter
   flutter_riverpod: ^2.6.1
   flutter_screenutil: ^5.9.3
+  flutter_svg: ^2.2.0
   font_awesome_flutter: ^10.10.0
   freezed_annotation: ^3.1.0
   go_router: ^16.2.0
@@ -71,6 +72,7 @@ flutter:
   assets:
     - assets/auth/
     - assets/logo.png
+    - assets/chat/chatbot.png
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
