@@ -16,7 +16,12 @@ class SplashPage extends ConsumerWidget {
       body: asyncNav.when(
         data: (nextRoute) {
           // Navigate after splash
-          Future.microtask(() => context.goNamed(nextRoute));
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (context.mounted) {
+              context.goNamed(nextRoute);
+            }
+          });
+
           return Center(child: Image.asset(AppImages.logo, width: 150.w));
         },
         loading: () => const Center(child: CircularProgressIndicator()),

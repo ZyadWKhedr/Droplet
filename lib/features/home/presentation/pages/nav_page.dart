@@ -1,4 +1,4 @@
-import 'package:droplet/core/constatnts/app_colors.dart';
+import 'package:droplet/features/ai/presentation/pages/chat_page.dart';
 import 'package:droplet/features/home/presentation/providers/nav_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +13,7 @@ class NavPage extends ConsumerWidget {
 
     final pages = [
       const Center(child: Text("Home Page")),
-      const Center(child: Text("Search Page")),
+      ChatPage(),
       const Center(child: Text("Profile Page")),
     ];
 
