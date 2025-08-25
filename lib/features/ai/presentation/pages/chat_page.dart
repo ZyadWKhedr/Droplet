@@ -25,14 +25,8 @@ class _ChatPageState extends ConsumerState<ChatPage> {
     final notifier = ref.read(chatControllerProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('AI Chat + Plant Recs'),
-        actions: [
-          IconButton(
-            tooltip: 'Get two plant recommendations from current weather',
-            onPressed: () => notifier.requestPlantRecommendations(_demoSensor),
-            icon: const Icon(Icons.local_florist),
-          ),
+      appBar: AppBar(title: const Text('AI Chat + Plant Recs'), actions: [
+          
         ],
       ),
       body: Column(

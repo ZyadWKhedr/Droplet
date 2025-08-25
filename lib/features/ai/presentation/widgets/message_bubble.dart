@@ -1,4 +1,7 @@
+import 'package:droplet/core/constatnts/app_colors.dart';
+import 'package:droplet/core/text/app_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../domain/entities/chat_message_entity.dart';
 
 class MessageBubble extends StatelessWidget {
@@ -11,14 +14,24 @@ class MessageBubble extends StatelessWidget {
     return Align(
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-        padding: const EdgeInsets.all(12),
-        constraints: const BoxConstraints(maxWidth: 320),
+        margin: EdgeInsets.symmetric(
+          vertical: !isUser ? 16.h : 0,
+        ).copyWith(right: !isUser ? 56.w : 24.w, left: !isUser ? 24.w : 56.w),
+        padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 14.h),
+        constraints: BoxConstraints(maxWidth: 295.w),
         decoration: BoxDecoration(
-          color: isUser ? Colors.blue.shade100 : Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: AppColors.accent),
+          color: isUser ? AppColors.accent : Color(0xffFBFDFE),
+          borderRadius: BorderRadius.circular(10.r),
         ),
-        child: Text(message.text),
+        child: Text(
+          message.text,
+          style: AppText.body.copyWith(
+            fontSize: 14.sp,
+            color: isUser ? Colors.white : AppColors.primary,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
       ),
     );
   }
