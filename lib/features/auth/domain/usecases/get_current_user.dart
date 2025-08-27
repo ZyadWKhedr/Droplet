@@ -5,5 +5,6 @@ class GetCurrentUser {
   final AuthRepository repo;
   GetCurrentUser(this.repo);
 
-  UserEntity? call() => repo.currentUser;
+  Future<UserEntity?> call() => repo.currentUser;
 }
+

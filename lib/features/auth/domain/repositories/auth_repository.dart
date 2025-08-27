@@ -13,13 +13,13 @@ abstract class AuthRepository {
     required String password,
   });
 
-  Future<Either<String, UserEntity>> signInWithOAuth(SocialProvider  provider);
+  Future<Either<String, UserEntity>> signInWithOAuth(SocialProvider provider);
 
   Future<void> signOut();
 
   Stream<UserEntity?> authStateChanges();
 
-  UserEntity? get currentUser;
+  Future<UserEntity?> get currentUser;
 }
 
-enum SocialProvider  { google, apple, facebook }
+enum SocialProvider { google, apple, facebook }

@@ -45,6 +45,7 @@ class AuthForm extends ConsumerWidget {
                 email: _emailController.text.trim(),
                 password: _passwordController.text.trim(),
               );
+              
         }
 
         // Get the latest state after async operation

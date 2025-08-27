@@ -12,13 +12,14 @@ class SupabaseAuthDataSource {
     required String email,
     required String password,
   }) async {
-    final res = await client.auth.signUp(
-      email: email,
-      password: password,
-      data: {'name': username},
-    );
+    final res = await client.auth.signUp(email: email, password: password);
     final user = res.user;
     if (user == null) throw AuthException('No user returned');
+    await client.from('profiles').insert({
+      'id': user.id,
+      'username': username,
+      'email': user.email,
+    });
     return UserModel.fromSupabase(user.toJson());
   }
 
@@ -86,8 +87,20 @@ class SupabaseAuthDataSource {
     });
   }
 
-  UserModel? get currentUser {
-    final u = client.auth.currentUser;
-    return u == null ? null : UserModel.fromSupabase(u.toJson());
+  Future<UserModel?> get currentUser async {
+    final user = client.auth.currentUser;
+    if (user == null) return null;
+
+    final profile = await client
+        .from('profiles')
+        .select('username, email')
+        .eq('id', user.id)
+        .maybeSingle();
+
+    return UserModel(
+      id: user.id,
+      email: profile?['email'] ?? user.email,
+      name: profile?['username'],
+    );
   }
 }

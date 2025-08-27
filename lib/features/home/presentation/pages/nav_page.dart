@@ -1,4 +1,5 @@
 import 'package:droplet/features/ai/presentation/pages/chat_page.dart';
+import 'package:droplet/features/home/presentation/pages/profile_page.dart';
 import 'package:droplet/features/home/presentation/providers/nav_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,8 +14,8 @@ class NavPage extends ConsumerWidget {
 
     final pages = [
       const Center(child: Text("Home Page")),
-      ChatPage(),
-      const Center(child: Text("Profile Page")),
+      const ChatPage(),
+      const ProfilePage(),
     ];
 
     return Scaffold(

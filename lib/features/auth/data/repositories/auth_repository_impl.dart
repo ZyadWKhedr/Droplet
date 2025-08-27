@@ -28,7 +28,10 @@ class AuthRepositoryImpl implements AuthRepository {
   }) async {
     try {
       final user = await ds.signUpWithEmail(
-          username: username, email: email, password: password);
+        username: username,
+        email: email,
+        password: password,
+      );
       return Right(user);
     } catch (e) {
       return Left(e.toString());
@@ -36,7 +39,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<String, UserEntity>> signInWithOAuth(SocialProvider provider) async {
+  Future<Either<String, UserEntity>> signInWithOAuth(
+    SocialProvider provider,
+  ) async {
     try {
       final user = await ds.signInWithOAuth(provider);
       return Right(user);
@@ -52,5 +57,5 @@ class AuthRepositoryImpl implements AuthRepository {
   Stream<UserEntity?> authStateChanges() => ds.authStateChanges();
 
   @override
-  UserEntity? get currentUser => ds.currentUser;
+  Future<UserEntity?> get currentUser => ds.currentUser;
 }

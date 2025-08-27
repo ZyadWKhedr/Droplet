@@ -1,9 +1,8 @@
+import 'package:droplet/core/providers/shared_prefs_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 final splashProvider = FutureProvider<String>((ref) async {
-  final prefs = await SharedPreferences.getInstance();
-
+  final prefs = ref.read(sharedPrefsProvider);
   // Optional: onboarding check
   // final isFirstTime = prefs.getBool('is_first_time') ?? true;
   // if (isFirstTime) {
@@ -15,8 +14,8 @@ final splashProvider = FutureProvider<String>((ref) async {
   final isLoggedIn = prefs.getBool('is_logged_in') ?? false;
 
   if (isLoggedIn) {
-    return 'nav'; 
+    return 'nav';
   } else {
-    return 'auth'; 
+    return 'auth';
   }
 });
