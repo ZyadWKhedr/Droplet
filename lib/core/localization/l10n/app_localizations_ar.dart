@@ -76,7 +76,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get home => 'الرئيسية';
 
   @override
-  String get aiChat => 'AI Chat';
+  String get aiChat => 'الدردشة الذكية';
 
   @override
   String get profile => 'الملف الشخصي';

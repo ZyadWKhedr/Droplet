@@ -1,3 +1,4 @@
+import 'package:droplet/core/extensions/localization_extension%20.dart';
 import 'package:droplet/features/ai/presentation/pages/chat_page.dart';
 import 'package:droplet/features/home/presentation/pages/profile_page.dart';
 import 'package:droplet/features/home/presentation/providers/nav_provider.dart';
@@ -22,7 +23,6 @@ class NavPage extends ConsumerWidget {
       body: pages[currentIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(12.r),
             topRight: Radius.circular(12.r),
@@ -41,21 +41,22 @@ class NavPage extends ConsumerWidget {
             topRight: Radius.circular(12.r),
           ),
           child: BottomNavigationBar(
-            backgroundColor: Colors.white,
-            elevation: 0, // shadow comes from container
             currentIndex: currentIndex,
             onTap: (index) {
               ref.read(navIndexProvider.notifier).toggleIndex(index);
             },
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: context.loc.home,
+              ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.search),
-                label: "Search",
+                label: context.loc.aiChat,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person),
-                label: "Profile",
+                label: context.loc.profile,
               ),
             ],
           ),

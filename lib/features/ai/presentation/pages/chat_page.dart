@@ -60,7 +60,7 @@ class _ChatPageState extends ConsumerState<ChatPage> {
                   children: [
                     Image.asset(AppImages.chatbot, width: 48.w, height: 48.h),
                     SizedBox(width: 16.w),
-                    Text('Chatbot', style: AppText.h2),
+                    Text(context.loc.aiChat, style: AppText.h2),
                   ],
                 ),
                 SizedBox(height: 10.h),
