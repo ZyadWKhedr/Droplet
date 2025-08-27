@@ -113,4 +113,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get orRegisterWith => 'Or Register with';
+
+  @override
+  String get language => 'Language';
 }

@@ -1,3 +1,4 @@
+import 'package:droplet/core/extensions/localization_extension%20.dart';
 import 'package:droplet/core/providers/locale_provider.dart';
 import 'package:droplet/core/text/app_text.dart';
 import 'package:droplet/core/providers/shared_prefs_provider.dart';
@@ -24,9 +25,12 @@ class ProfilePage extends ConsumerWidget {
       children: [
         SizedBox(height: 60.h),
         authState is AuthAuthenticated
-            ? Text('Hi, ${authState.user.name ?? "User"}', style: AppText.h2)
+            ? Text(
+                '${context.loc.hi}${authState.user.name ?? "User"}',
+                style: AppText.h2,
+              )
             : const Text('Hi, Guest'),
-            
+
         const Divider(thickness: 1),
         SizedBox(height: 25.h),
 
@@ -34,7 +38,7 @@ class ProfilePage extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("Appearance", style: TextStyle(fontSize: 18)),
+            Text(context.loc.appearance, style: TextStyle(fontSize: 18)),
             Switch(
               value: themeMode == ThemeMode.dark,
               onChanged: (val) {
@@ -51,7 +55,7 @@ class ProfilePage extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("Language", style: TextStyle(fontSize: 18)),
+            Text(context.loc.language, style: TextStyle(fontSize: 18)),
             IconButton(
               icon: const Icon(Icons.language),
               onPressed: () {
@@ -59,7 +63,6 @@ class ProfilePage extends ConsumerWidget {
                 // Example cycle: en -> ar -> fr
                 final next = switch (current) {
                   'en' => const Locale('ar'),
-                  'ar' => const Locale('fr'),
                   _ => const Locale('en'),
                 };
                 ref.read(localeProvider.notifier).setLocale(next);
@@ -69,30 +72,14 @@ class ProfilePage extends ConsumerWidget {
         ),
         const Divider(thickness: 1),
 
-        _buildItem("Text 2"),
-        const Text("Extra text between 2nd and 3rd"),
-        _buildItem("Text 3"),
-        _buildItem("Text 4"),
-        _buildItem("Text 5"),
-
         CustomButton(
-          text: 'Logout',
+          text: context.loc.signOut,
           onPressed: () async {
             await ref.read(sharedPrefsProvider).setBool('is_logged_in', false);
             await ref.read(authStateProvider.notifier).signOut();
             context.goNamed('auth');
           },
         ),
-      ],
-    );
-  }
-
-  Widget _buildItem(String text) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(text, style: const TextStyle(fontSize: 18)),
-        const Divider(thickness: 1),
       ],
     );
   }
