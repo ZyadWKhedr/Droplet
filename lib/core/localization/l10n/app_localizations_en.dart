@@ -88,7 +88,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get temp => 'Temperature';
 
   @override
-  String get rain => 'Rain';
+  String get rain => 'Rainning';
+
+  @override
+  String get norain => 'Not Rainning';
 
   @override
   String get humidity => 'Humidity';

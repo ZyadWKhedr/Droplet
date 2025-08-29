@@ -257,8 +257,14 @@ abstract class AppLocalizations {
   /// No description provided for @rain.
   ///
   /// In en, this message translates to:
-  /// **'Rain'**
+  /// **'Rainning'**
   String get rain;
+
+  /// No description provided for @norain.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Rainning'**
+  String get norain;
 
   /// No description provided for @humidity.
   ///

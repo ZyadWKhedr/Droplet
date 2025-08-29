@@ -21,8 +21,12 @@ class IotReadingModel extends IotReading {
       temperature: (map['temperature'] as num).toDouble(),
       humidity: (map['humidity'] as num).toDouble(),
       waterLevel: (map['water_level'] as num).toInt(),
-      rainDetected: map['rain_detected'] as bool,
-      servoStatus: map['servo_status'] as bool,
+      rainDetected: (map['rain_detected'] is bool)
+          ? map['rain_detected'] as bool
+          : (map['rain_detected'] == 1), 
+      servoStatus: (map['servo_status'] is bool)
+          ? map['servo_status'] as bool
+          : (map['servo_status'] == 1),
     );
   }
 }

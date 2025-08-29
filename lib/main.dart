@@ -12,6 +12,7 @@ Future<void> main() async {
   final prefs = await SharedPreferences.getInstance();
 
   await Supabase.initialize(url: Env.supabaseUrl, anonKey: Env.supabaseAnonKey);
+  await Supabase.instance.client.auth.signOut();
 
   runApp(
     ProviderScope(
