@@ -1,5 +1,6 @@
 import 'package:droplet/core/extensions/localization_extension%20.dart';
 import 'package:droplet/features/ai/presentation/pages/chat_page.dart';
+import 'package:droplet/features/home/presentation/pages/home_page.dart';
 import 'package:droplet/features/home/presentation/pages/profile_page.dart';
 import 'package:droplet/features/home/presentation/providers/nav_provider.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +14,7 @@ class NavPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(navIndexProvider);
 
-    final pages = [
-      const Center(child: Text("Home Page")),
-      const ChatPage(),
-      const ProfilePage(),
-    ];
+    final pages = [const HomePage(), const ChatPage(), const ProfilePage()];
 
     return Scaffold(
       body: pages[currentIndex],
