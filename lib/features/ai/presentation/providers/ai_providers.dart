@@ -1,3 +1,6 @@
+import 'package:droplet/features/ai/domain/entities/recommendation_entity.dart';
+import 'package:droplet/features/ai/domain/entities/sensor_data_entity.dart';
+import 'package:droplet/features/home/domain/entities/iot_readings.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import '../../data/datasources/gemini_remote_datasource.dart';
@@ -51,3 +54,17 @@ final sendChatUseCaseProvider = Provider<SendChatMessageUseCase>((ref) {
 final getRecsUseCaseProvider = Provider<GetPlantRecommendationsUseCase>((ref) {
   return GetPlantRecommendationsUseCase(ref.watch(aiRepositoryProvider));
 });
+final plantRecommendationsProvider = FutureProvider.autoDispose
+    .family<List<Recommendation>, IotReading>((ref, reading) async {
+      final sensor = SensorData(
+        temperatureC: reading.temperature,
+        humidityPct: reading.humidity,
+        rainfallMm: reading.rainDetected ? 1.0 : 0.0,
+      );
+
+      final useCase = GetPlantRecommendationsUseCase(
+        ref.watch(aiRepositoryProvider),
+      );
+      final recs = await useCase.call(sensor);
+      return recs.take(2).toList();
+    });

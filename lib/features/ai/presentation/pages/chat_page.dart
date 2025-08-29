@@ -3,6 +3,8 @@ import 'package:droplet/core/extensions/localization_extension%20.dart';
 import 'package:droplet/core/text/app_text.dart';
 import 'package:droplet/features/ai/presentation/providers/chat_controller.dart';
 import 'package:droplet/features/ai/presentation/widgets/text_field.dart';
+import 'package:droplet/features/home/domain/entities/iot_readings.dart';
+import 'package:droplet/features/home/presentation/providers/readings_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,9 +21,6 @@ class ChatPage extends ConsumerStatefulWidget {
 class _ChatPageState extends ConsumerState<ChatPage> {
   final _controller = TextEditingController();
   final _scrollController = ScrollController();
-  // For demo: fake sensor values (you will replace later with your real sensors)
-  SensorData get _demoSensor =>
-      const SensorData(temperatureC: 27.0, humidityPct: 62.0, rainfallMm: 0.0);
 
   @override
   void dispose() {
@@ -44,6 +43,10 @@ class _ChatPageState extends ConsumerState<ChatPage> {
   Widget build(BuildContext context) {
     final state = ref.watch(chatControllerProvider);
     final notifier = ref.read(chatControllerProvider.notifier);
+
+    // Watch latest live reading
+    final liveReading = ref.watch(liveReadingProvider);
+
     WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
 
     return Scaffold(
@@ -68,18 +71,9 @@ class _ChatPageState extends ConsumerState<ChatPage> {
               ],
             ),
           ),
-          if (state.error != null)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Error: ${state.error}',
-                style: const TextStyle(color: Colors.red),
-              ),
-            ),
-
           Expanded(
             child: ListView(
-              controller: _scrollController, // attach controller
+              controller: _scrollController,
               padding: const EdgeInsets.symmetric(vertical: 8),
               children: [
                 ...state.messages.map((m) => MessageBubble(message: m)),
@@ -119,12 +113,12 @@ class _ChatPageState extends ConsumerState<ChatPage> {
                       CustomTextField(
                         controller: _controller,
                         hint: context.loc.botInput,
-                        onSubmitted: (_) => _send(notifier),
+                        onSubmitted: (_) => _send(notifier, liveReading),
                       ),
                       Align(
                         alignment: AlignmentDirectional.centerEnd,
                         child: IconButton(
-                          onPressed: () => _send(notifier),
+                          onPressed: () => _send(notifier, liveReading),
                           icon: const Icon(Icons.send),
                         ),
                       ),
@@ -139,13 +133,24 @@ class _ChatPageState extends ConsumerState<ChatPage> {
     );
   }
 
-  void _send(ChatController notifier) {
+  void _send(ChatController notifier, AsyncValue<IotReading> liveReading) {
     final text = _controller.text.trim();
     if (text.isEmpty) return;
     _controller.clear();
-    notifier.sendUserMessage(
-      text,
-      sensor: _demoSensor,
-    ); // include sensor data in chat if you want
+
+    // Only send sensor data if the live reading is available
+    final sensorData = liveReading.when(
+      data: (reading) => SensorData(
+        temperatureC: reading.temperature,
+        humidityPct: reading.humidity,
+        rainfallMm: reading.rainDetected ? 1.0 : 0.0,
+      ),
+      loading: () =>
+          const SensorData(temperatureC: 0, humidityPct: 0, rainfallMm: 0),
+      error: (_, __) =>
+          const SensorData(temperatureC: 0, humidityPct: 0, rainfallMm: 0),
+    );
+
+    notifier.sendUserMessage(text, sensor: sensorData);
   }
 }

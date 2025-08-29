@@ -1,3 +1,5 @@
+import 'package:droplet/features/home/domain/entities/iot_readings.dart';
+import 'package:droplet/features/home/presentation/providers/readings_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/entities/chat_message_entity.dart';
 import '../../domain/entities/recommendation_entity.dart';
@@ -34,10 +36,10 @@ class ChatState {
   }
 
   factory ChatState.initial() => ChatState(
-        messages: const [],
-        recommendations: const [],
-        isLoading: false,
-      );
+    messages: const [],
+    recommendations: const [],
+    isLoading: false,
+  );
 }
 
 class ChatController extends StateNotifier<ChatState> {
@@ -47,12 +49,18 @@ class ChatController extends StateNotifier<ChatState> {
   ChatController(this._sendChat, this._getRecs) : super(ChatState.initial());
 
   Future<void> sendUserMessage(String text, {SensorData? sensor}) async {
-    final newHistory = [...state.messages, ChatMessage(role: ChatRole.user, text: text)];
+    final newHistory = [
+      ...state.messages,
+      ChatMessage(role: ChatRole.user, text: text),
+    ];
     state = state.copyWith(messages: newHistory, isLoading: true, error: null);
 
     try {
       final botText = await _sendChat(history: newHistory, sensor: sensor);
-      final updated = [...newHistory, ChatMessage(role: ChatRole.bot, text: botText)];
+      final updated = [
+        ...newHistory,
+        ChatMessage(role: ChatRole.bot, text: botText),
+      ];
       state = state.copyWith(messages: updated, isLoading: false);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
@@ -74,10 +82,34 @@ class ChatController extends StateNotifier<ChatState> {
   }
 }
 
-final chatControllerProvider =
+final chatControllerProvider = StateNotifierProvider<ChatController, ChatState>(
+  (ref) {
+    return ChatController(
+      ref.watch(sendChatUseCaseProvider),
+      ref.watch(getRecsUseCaseProvider),
+    );
+  },
+);
+
+final homeRecsControllerProvider =
     StateNotifierProvider<ChatController, ChatState>((ref) {
-  return ChatController(
-    ref.watch(sendChatUseCaseProvider),
-    ref.watch(getRecsUseCaseProvider),
-  );
-});
+      final chatController = ChatController(
+        ref.watch(sendChatUseCaseProvider),
+        ref.watch(getRecsUseCaseProvider),
+      );
+
+      // Trigger recommendations when live reading updates
+      ref.listen<AsyncValue<IotReading>>(liveReadingProvider, (prev, next) {
+        next.whenData((reading) {
+          chatController.requestPlantRecommendations(
+            SensorData(
+              temperatureC: reading.temperature,
+              humidityPct: reading.humidity,
+              rainfallMm: reading.rainDetected ? 1.0 : 0.0,
+            ),
+          );
+        });
+      });
+
+      return chatController;
+    });

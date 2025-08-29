@@ -45,6 +45,8 @@ dependencies:
   google_generative_ai: ^0.4.7
   intl: ^0.20.2
   json_annotation: ^4.9.0
+  liquid_progress_indicator: ^0.4.0
+  sensors_plus: ^6.1.2
   shared_preferences: ^2.5.3
   supabase_flutter: ^2.9.1
   url_launcher: ^6.3.2

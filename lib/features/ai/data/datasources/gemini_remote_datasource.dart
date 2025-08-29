@@ -94,7 +94,7 @@ Rules:
 ''';
 
     final resp = await jsonModel.generateContent([
-      Content.system('You output machine-readable JSON for mobile apps.'),
+      Content.text('You output machine-readable JSON for mobile apps.'),
       Content.text(instruction),
     ]);
 
