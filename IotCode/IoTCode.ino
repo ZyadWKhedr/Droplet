@@ -9,14 +9,14 @@
 #include "time.h"
 
 // ---------------------- إعدادات Supabase ----------------------
-String supabase_url = "https://gjfxieuddmmykcpbijgs.supabase.co";
-String anon_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdqZnhpZXVkZG1teWtjcGJpamdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY0NzM2NzEsImV4cCI6MjA3MjA0OTY3MX0.niSY2vR_rIO9xabKukEpqv3ZbcuRmcQ6_hYtKQrUm-Q";
+String supabase_url = "THE SUPABASE URL";
+String anon_key = "ANON-KEY";
 Supabase db;
-String table = "readings";
+String table = "TABLE NAME";
 
 // ---------------------- إعدادات WiFi ----------------------
-const char* ssid = "realme 5 Pro";
-const char* psswd = "afmm1234";
+const char* ssid = "YOUR WIFI USERNAME";
+const char* psswd = "YOUR WIFI PASSWORD";
 
 // ---------------------- NTP ----------------------
 const char* ntpServer = "pool.ntp.org";
